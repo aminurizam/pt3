@@ -10,7 +10,7 @@ if (isset($_POST['create'])) {
 
   try {
 
-    $stmt = $conn->prepare("INSERT INTO tbl_staffs_a150547(fld_staff_num, fld_staff_name, fld_staff_email, fld_staff_phone, fld_staff_department) VALUES(:sid, :name, :email,
+    $stmt = $conn->prepare("INSERT INTO tbl_staffs_a150547_pt2(fld_staff_num, fld_staff_name, fld_staff_email, fld_staff_phone, fld_staff_department) VALUES(:sid, :name, :email,
       :phone, :department)");
 
     $stmt->bindParam(':sid', $sid, PDO::PARAM_STR);
@@ -39,8 +39,8 @@ if (isset($_POST['update'])) {
 
   try {
 
-    $stmt = $conn->prepare("UPDATE tbl_staffs_a150547 SET
-      fld_staff_num = :sid, fld_staff_name = :fname, fld_staff_email = :email,
+    $stmt = $conn->prepare("UPDATE tbl_staffs_a150547_pt2 SET
+      fld_staff_num = :sid, fld_staff_name = :name, fld_staff_email = :email,
       fld_staff_phone = :phone, fld_staff_department = :department
       WHERE fld_staff_num = :oldsid");
 
@@ -74,7 +74,7 @@ if (isset($_GET['delete'])) {
 
   try {
 
-    $stmt = $conn->prepare("DELETE FROM tbl_staffs_a150547 where fld_staff_num = :sid");
+    $stmt = $conn->prepare("DELETE FROM tbl_staffs_a150547_pt2 where fld_staff_num = :sid");
 
     $stmt->bindParam(':sid', $sid, PDO::PARAM_STR);
 
@@ -96,7 +96,7 @@ if (isset($_GET['edit'])) {
 
   try {
 
-    $stmt = $conn->prepare("SELECT * FROM tbl_staffs_a150547 where fld_staff_num = :sid");
+    $stmt = $conn->prepare("SELECT * FROM tbl_staffs_a150547_pt2 where fld_staff_num = :sid");
 
     $stmt->bindParam(':sid', $sid, PDO::PARAM_STR);
 

@@ -10,7 +10,7 @@ if (isset($_POST['create'])) {
 
   try {
 
-    $stmt = $conn->prepare("INSERT INTO tbl_customers_a150547(fld_customer_num, fld_customer_name, fld_customer_gender, fld_customer_email, fld_customer_phone)
+    $stmt = $conn->prepare("INSERT INTO tbl_customers_a150547_pt2(fld_customer_num, fld_customer_name, fld_customer_gender, fld_customer_email, fld_customer_phone)
     VALUES(:cid, :name, :gender, :email, :phone)");
 
     $stmt->bindParam(':cid', $cid, PDO::PARAM_STR);
@@ -39,7 +39,7 @@ if (isset($_POST['update'])) {
 
   try {
 
-    $stmt = $conn->prepare("UPDATE tbl_customer_a150547 SET fld_customer_num = :cid,
+    $stmt = $conn->prepare("UPDATE tbl_customers_a150547_pt2 SET fld_customer_num = :cid,
       fld_customer_name = :name, fld_customer_gender = :gender, fld_customer_email = :email, fld_customer_phone = :phone
       WHERE fld_customer_num = :oldcid");
 
@@ -73,7 +73,7 @@ if (isset($_GET['delete'])) {
 
   try {
 
-    $stmt = $conn->prepare("DELETE FROM tbl_customers_a150547 WHERE fld_customer_num = :cid");
+    $stmt = $conn->prepare("DELETE FROM tbl_customers_a150547_pt2 WHERE fld_customer_num = :cid");
 
     $stmt->bindParam(':cid', $cid, PDO::PARAM_STR);
 
@@ -95,7 +95,7 @@ if (isset($_GET['edit'])) {
 
   try {
 
-    $stmt = $conn->prepare("SELECT * FROM tbl_customers_a150547 WHERE fld_customer_num = :cid");
+    $stmt = $conn->prepare("SELECT * FROM tbl_customers_a150547_pt2 WHERE fld_customer_num = :cid");
 
     $stmt->bindParam(':cid', $cid, PDO::PARAM_STR);
 

@@ -34,7 +34,7 @@
       <div class="form-group">
         <label for="productid" class="col-sm-3 control-label">ID</label>
         <div class="col-sm-9">
-          <input name="pid" type="text" class="form-control" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_num']; ?>" required>
+          <input name="pid" type="text" readonly class="form-control" value="<?php if(isset($_GET['edit'])) echo $editrow['fld_product_num']; ?>">
         </div>
       </div>
 
@@ -134,7 +134,7 @@
       </tr>
       <?php
       // Read
-      $per_page = 8;
+      $per_page = 10; //show maximum product can be shown in a page
      if (isset($_GET["page"]))
        $page = $_GET["page"];
      else
@@ -143,7 +143,7 @@
       try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $conn->prepare("select * from tbl_products_a150547 LIMIT $start_from, $per_page");
+        $stmt = $conn->prepare("select * from tbl_products_a150547_pt2 LIMIT $start_from, $per_page");
         $stmt->execute();
         $result = $stmt->fetchAll();
       }
@@ -171,7 +171,7 @@
     </table>
     </div>
     </div>
-    
+
     <div class="row">
      <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
        <nav>
@@ -180,7 +180,7 @@
            try {
              $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-             $stmt = $conn->prepare("SELECT * FROM tbl_products_a150547");
+             $stmt = $conn->prepare("SELECT * FROM tbl_products_a150547_pt2");
              $stmt->execute();
              $result = $stmt->fetchAll();
              $total_records = count($result);

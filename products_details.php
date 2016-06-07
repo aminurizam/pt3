@@ -28,7 +28,7 @@
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $conn->prepare("SELECT * FROM tbl_products_a150547 WHERE fld_product_num = :pid");
+        $stmt = $conn->prepare("SELECT * FROM tbl_products_a150547_pt2 WHERE fld_product_num = :pid");
       $stmt->bindParam(':pid', $pid, PDO::PARAM_STR);
       $pid = $_GET['pid'];
       $stmt->execute();
@@ -42,11 +42,11 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-md-4 col-md-offset-2 well well-sm text-center">
-        <?php if ($readrow['fld_product_image'] == "" ) {
+        <?php if ($readrow['fld_product_num'] == "" ) {
           echo "No image";
         }
         else { ?>
-        <img src="products/<?php echo $readrow['fld_product_image'] ?>" class="img-responsive">
+        <img src="products/<?php echo $readrow['fld_product_num'] ?>.JPG" class="img-responsive">
         <?php } ?>
       </div>
     <div class="col-xs-12 col-sm-5 col-md-4">
@@ -73,12 +73,16 @@
             <td><?php echo $readrow['fld_product_brand'] ?></td>
           </tr>
           <tr>
-            <td><strong>Condition</strong></td>
-            <td><?php echo $readrow['fld_product_condition'] ?></td>
+            <td><strong>Type</strong></td>
+            <td><?php echo $readrow['fld_product_type'] ?></td>
           </tr>
           <tr>
-            <td><strong>Manufacturing Year</strong></td>
-            <td><?php echo $readrow['fld_product_year'] ?></td>
+            <td><strong>Color</strong></td>
+            <td><?php echo $readrow['fld_product_color'] ?></td>
+          </tr>
+          <tr>
+            <td><strong>Description</strong></td>
+            <td><?php echo $readrow['fld_product_description'] ?></td>
           </tr>
           <tr>
             <td><strong>Quantity</strong></td>

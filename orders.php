@@ -45,12 +45,12 @@
         <div class="form-group">
           <label for="staffname" class="col-sm-3 control-label">Staff</label>
           <div class="col-sm-9">
-            <select name="sid" class="form-control">
+            <select name="sid" class="form-control" required>
             <?php
             try {
               $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $conn->prepare("SELECT * FROM tbl_staffs_a150547");
+                $stmt = $conn->prepare("SELECT * FROM tbl_staffs_a150547_pt2");
               $stmt->execute();
               $result = $stmt->fetchAll();
             }
@@ -75,12 +75,12 @@
         <div class="form-group">
           <label for="customername" class="col-sm-3 control-label">Customer</label>
           <div class="col-sm-9">
-            <select name="cid" class="form-control">
+            <select name="cid" class="form-control" required>
               <?php
               try {
                 $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                  $stmt = $conn->prepare("SELECT * FROM tbl_customers_a150547");
+                  $stmt = $conn->prepare("SELECT * FROM tbl_customers_a150547_pt2");
                 $stmt->execute();
                 $result = $stmt->fetchAll();
               }
@@ -131,12 +131,20 @@
         <th></th>
       </tr>
       <?php
+
+      $per_page = 5; //show maximum product can be shown in a page
+      if (isset($_GET["page"]))
+       $page = $_GET["page"];
+       else
+       $page = 1;
+      $start_from = ($page-1) * $per_page;
+
       try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM tbl_orders_a150547, tbl_staffs_a150547, tbl_customers_a150547 WHERE ";
-        $sql = $sql."tbl_orders_a150547.fld_staff_num = tbl_staffs_a150547.fld_staff_num and ";
-        $sql = $sql."tbl_orders_a150547.fld_customer_num = tbl_customers_a150547.fld_customer_num";
+        $sql = "SELECT * FROM tbl_orders_a150547, tbl_staffs_a150547_pt2, tbl_customers_a150547_pt2 WHERE ";
+        $sql = $sql."tbl_orders_a150547.fld_staff_num = tbl_staffs_a150547_pt2.fld_staff_num and ";
+        $sql = $sql."tbl_orders_a150547.fld_customer_num = tbl_customers_a150547_pt2.fld_customer_num LIMIT $start_from, $per_page";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll();
@@ -161,7 +169,52 @@
       }
       $conn = null;
       ?>
-    </table>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+   <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+     <nav>
+         <ul class="pagination">
+         <?php
+         try {
+           $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+           $stmt = $conn->prepare("SELECT * FROM tbl_orders_a150547");
+           $stmt->execute();
+           $result = $stmt->fetchAll();
+           $total_records = count($result);
+         }
+         catch(PDOException $e){
+               echo "Error: " . $e->getMessage();
+         }
+         $total_pages = ceil($total_records / $per_page);
+         ?>
+         <?php if ($page==1) { ?>
+           <li class="disabled"><span aria-hidden="true">«</span></li>
+         <?php } else { ?>
+           <li><a href="orders.php?page=<?php echo $page-1 ?>" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+         <?php }
+         for ($i=1; $i<=$total_pages; $i++)
+           if ($i == $page)
+             echo "<li class=\"active\"><a href=\"orders.php?page=$i\">$i</a></li>";
+           else
+             echo "<li><a href=\"orders.php?page=$i\">$i</a></li>";
+
+         ?>
+         <?php if ($page==$total_pages) { ?>
+           <li class="disabled"><span aria-hidden="true">»</span></li>
+         <?php } else { ?>
+           <li><a href="orders.php?page=<?php echo $page+1 ?>" aria-label="Previous"><span aria-hidden="true">»</span></a></li>
+         <?php } ?>
+       </ul>
+     </nav>
+   </div>
+  </div>
+
+  </div><!--end of container-fluid-->
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

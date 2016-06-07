@@ -10,7 +10,7 @@ if (isset($_POST['create'])) {
 
   try {
 
-      $stmt = $conn->prepare("INSERT INTO tbl_products_a150547(fld_product_num,
+      $stmt = $conn->prepare("INSERT INTO tbl_products_a150547_pt2(fld_product_num,
         fld_product_name, fld_product_price, fld_product_brand, fld_product_type,
         fld_product_color, fld_product_description, fld_product_quantity) VALUES(:pid, :name, :price, :brand,
         :type, :color, :description, :quantity)");
@@ -47,7 +47,7 @@ if (isset($_POST['update'])) {
 
   try {
 
-      $stmt = $conn->prepare("UPDATE tbl_products_a150547 SET fld_product_num = :pid,
+      $stmt = $conn->prepare("UPDATE tbl_products_a150547_pt2 SET fld_product_num = :pid,
         fld_product_name = :name, fld_product_price = :price, fld_product_brand = :brand,
         fld_product_type = :type, fld_product_color = :color, fld_product_description = :description, fld_product_quantity = :quantity
         WHERE fld_product_num = :oldpid");
@@ -88,7 +88,7 @@ if (isset($_GET['delete'])) {
 
   try {
 
-      $stmt = $conn->prepare("DELETE FROM tbl_products_a150547 WHERE fld_product_num = :pid");
+      $stmt = $conn->prepare("DELETE FROM tbl_products_a150547_pt2 WHERE fld_product_num = :pid");
 
       $stmt->bindParam(':pid', $pid, PDO::PARAM_STR);
 
@@ -110,7 +110,7 @@ if (isset($_GET['edit'])) {
 
   try {
 
-      $stmt = $conn->prepare("SELECT * FROM tbl_products_a150547 WHERE fld_product_num = :pid");
+      $stmt = $conn->prepare("SELECT * FROM tbl_products_a150547_pt2 WHERE fld_product_num = :pid");
 
       $stmt->bindParam(':pid', $pid, PDO::PARAM_STR);
 
