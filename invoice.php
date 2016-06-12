@@ -59,14 +59,14 @@ $conn = null;
     <div class="col-xs-5">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4>From: My Bike Sdn. Bhd.</h4>
+          <h4>From: TOPMEN Sdn. Bhd.</h4>
         </div>
         <div class="panel-body">
           <p>
-          Address 1 <br>
-          Address 2 <br>
-          Postcode City <br>
-          State <br>
+          Centrepoint <br>
+          Jalan Karamunsing <br>
+          91000 <br>
+          Sabah <br>
           </p>
         </div>
       </div>
